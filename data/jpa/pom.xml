@@ -37,19 +37,19 @@
                         </component>
                     </components>
                     <componentProperties>
-                        <drop>true</drop>
+                        <drop>false</drop>
                         <jdk5>true</jdk5>
                         <propertyfile>target/test-classes/jdbc.properties</propertyfile>
                         <skip>${skipTests}</skip>
                     </componentProperties>
                 </configuration>
                 <executions>
-                    <execution>
+                    <!--execution>
                         <phase>process-test-resources</phase>
                         <goals>
                             <goal>hbm2ddl</goal>
                         </goals>
-                    </execution>
+                    </execution-->
                 </executions>
                 <dependencies>
                     <dependency>

@@ -592,7 +592,7 @@
         <jdbc.version>1.4.181</jdbc.version>
         <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
         <jdbc.url>
-            <![CDATA[jdbc:h2:~/test;MVCC=true]]>
+            <![CDATA[jdbc:h2:~/appfuse_db;MVCC=true]]>
         </jdbc.url>
         <jdbc.username></jdbc.username>
         <jdbc.password />
