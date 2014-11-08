@@ -21,9 +21,17 @@ public class RoleDaoTest extends BaseDaoTestCase {
     }
 
     @Test
-    public void testGetRole() throws Exception {
+    public void testGetRoleUserRole() throws Exception {
         Role role = dao.getRoleByName(Constants.USER_ROLE);
         assertNotNull(role);
+        assertEquals("Manager", role.getPosition());
+    }
+
+    @Test
+    public void testGetRoleAdminRole() throws Exception {
+        Role role = dao.getRoleByName(Constants.ADMIN_ROLE);
+        assertNotNull(role);
+        assertEquals("Administrator", role.getPosition());
     }
 
     @Test
@@ -35,6 +43,17 @@ public class RoleDaoTest extends BaseDaoTestCase {
         
         role = dao.getRoleByName("ROLE_USER");
         assertEquals("test descr", role.getDescription());
+    }
+
+    @Test
+    public void testUpdateRolePosition() throws Exception {
+        Role role = dao.getRoleByName("ROLE_USER");
+        role.setPosition("test role");
+        dao.save(role);
+        flush();
+        
+        role = dao.getRoleByName("ROLE_USER");
+        assertEquals("test role", role.getPosition());
     }
 
     @Test
