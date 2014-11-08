@@ -36,6 +36,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     private Long id;
     private String name;
     private String description;
+    private String position;
 
     /**
      * Default constructor - creates a new instance with no values set.
@@ -77,6 +78,11 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
         return this.description;
     }
 
+    @Column(length = 255)
+    public String getPosition() {
+    	return this.position;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -87,6 +93,10 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     /**
