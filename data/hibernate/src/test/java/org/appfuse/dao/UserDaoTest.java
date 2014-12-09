@@ -1,5 +1,14 @@
 package org.appfuse.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
@@ -8,10 +17,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class UserDaoTest extends BaseDaoTestCase {
     @Autowired
@@ -169,5 +174,30 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertEquals(1, found.size());
         user = found.get(0);
         assertEquals("MattX", user.getFirstName());
+    }
+
+    @Test
+    public void testUserPosition() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	Method getPosition = User.class.getMethod("getPosition");
+
+    	User user1 = dao.get(-1L);
+    	User user2 = dao.get(-2L);
+    	User user3 = dao.get(-3L);
+
+    	assertEquals("Administrator", getPosition.invoke(user1));
+    	assertEquals("Manager", getPosition.invoke(user2));
+    	assertEquals("DevOps", getPosition.invoke(user3));
+    }
+
+    @Test
+    public void testUpdateUserPosition() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	Method getPosition = User.class.getMethod("getPosition");
+    	Method setPosition = User.class.getMethod("setPosition", String.class);
+    	User user1 = dao.get(-1L);
+
+    	setPosition.invoke(user1, "test position");
+
+    	dao.save(user1);
+    	assertEquals("test position", getPosition.invoke(user1));
     }
 }

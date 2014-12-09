@@ -20,6 +20,7 @@
         <column>account_expired</column>
         <column>account_locked</column>
         <column>credentials_expired</column>
+        <column>position</column>
         <row>
             <value description="id">-1</value>
             <value description="username">user</value>
@@ -40,6 +41,7 @@
             <value description="account_expired">0</value>
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
+            <value description="position"><![CDATA[Administrator]]></value>
         </row>
         <row>
             <value description="id">-2</value>
@@ -61,6 +63,7 @@
             <value description="account_expired">0</value>
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
+            <value description="position"><![CDATA[Manager]]></value>
         </row>
         <row>
             <value description="id">-3</value>
@@ -82,24 +85,22 @@
             <value description="account_expired">0</value>
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
+            <value description="position"><![CDATA[DevOps]]></value>
         </row>        
     </table>
     <table name="role">
         <column>id</column>
         <column>name</column>
         <column>description</column>
-        <column>position</column>
         <row>
             <value description="id">-1</value>
             <value description="name">ROLE_ADMIN</value>
             <value description="description"><![CDATA[Administrator role (can edit Users)]]></value>
-            <value description="position"><![CDATA[Administrator]]></value>
         </row>
         <row>
             <value description="id">-2</value>
             <value description="name">ROLE_USER</value>
             <value description="description"><![CDATA[Default role for all Users]]></value>
-            <value description="position"><![CDATA[Manager]]></value>
         </row>
     </table>
     <table name="user_role">

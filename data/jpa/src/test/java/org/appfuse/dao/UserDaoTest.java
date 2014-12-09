@@ -1,5 +1,17 @@
 package org.appfuse.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
@@ -7,12 +19,6 @@ import org.appfuse.model.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class UserDaoTest extends BaseDaoTestCase {
     @PersistenceContext
@@ -141,5 +147,30 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         found = dao.search("Tomcat");
         assertEquals(1, found.size());
+    }
+
+    @Test
+    public void testUserPosition() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	Method getPosition = User.class.getMethod("getPosition");
+
+    	User user1 = dao.get(-1L);
+    	User user2 = dao.get(-2L);
+    	User user3 = dao.get(-3L);
+
+    	assertEquals("Administrator", getPosition.invoke(user1));
+    	assertEquals("Manager", getPosition.invoke(user2));
+    	assertEquals("DevOps", getPosition.invoke(user3));
+    }
+
+    @Test
+    public void testUpdateUserPosition() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	Method getPosition = User.class.getMethod("getPosition");
+    	Method setPosition = User.class.getMethod("setPosition", String.class);
+    	User user1 = dao.get(-1L);
+
+    	setPosition.invoke(user1, "test position");
+
+    	dao.save(user1);
+    	assertEquals("test position", getPosition.invoke(user1));
     }
 }
